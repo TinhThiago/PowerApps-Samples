@@ -2,6 +2,7 @@ import { ChoiceGroup, IChoiceGroupOption } from "@fluentui/react/lib/ChoiceGroup
 import { Dropdown, IDropdownOption } from "@fluentui/react/lib/Dropdown";
 import { Icon } from "@fluentui/react/lib/Icon";
 import * as React from "react";
+
 export interface ChoicesPickerComponentProps {
 	label: string;
 	value: number | null;
@@ -37,7 +38,37 @@ const onRenderTitle = (options?: IDropdownOption[]): JSX.Element => {
 	}
 	return <></>;
 };
+const onRenderChoiceField = (
+    option?: IChoiceGroupOption,
+    render?: (props?: IChoiceGroupOption) => JSX.Element | null
+): JSX.Element | null => {
+    if (!option) return null;
 
+    return (
+        <div
+            style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 8,
+                minHeight: 70,
+            }}
+        >
+            {option.iconProps?.iconName && (
+                <Icon
+                    iconName={option.iconProps.iconName}
+                    style={{
+                        fontSize: 24,
+                        color: "#0078d4",
+                    }}
+                />
+            )}
+
+            <span>{option.text}</span>
+        </div>
+    );
+};
 export const ChoicesPickerComponent = React.memo((props: ChoicesPickerComponentProps) => {
 	const { label, value, options, onChange, configuration, disabled, masked, formFactor } = props;
 	const valueKey = value != null ? value.toString() : undefined;
@@ -55,14 +86,14 @@ export const ChoicesPickerComponent = React.memo((props: ChoicesPickerComponentP
 
 		return {
 			error: configError,
-			choices: options.map((item) => {
-				return {
-					key: item.Value.toString(),
-					value: item.Value,
-					text: item.Label,
-					iconProps: { iconName: iconMapping[item.Value] },
-				} as IChoiceGroupOption;
-			}),
+			choices: options.map((item): IChoiceGroupOption => {
+    return {
+        key: item.Value.toString(),
+        value: item.Value,
+        text: item.Label,
+        iconProps: { iconName: iconMapping[item.Value] },
+    };
+}),
 			options: options.map((item) => {
 				return {
 					key: item.Value.toString(),

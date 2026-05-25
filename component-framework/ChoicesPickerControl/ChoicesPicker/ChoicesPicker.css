@@ -1,0 +1,12 @@
+.ms-ChoiceField-field {
+    min-height: 95px !important;
+    height: auto !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.ms-ChoiceFieldLabel {
+    white-space: normal !important;
+    line-height: 10px !important;
+    text-align: center;
+}

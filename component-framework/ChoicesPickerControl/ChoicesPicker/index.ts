@@ -1,9 +1,9 @@
+/// <reference types="powerapps-component-framework" />
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { initializeIcons } from "@fluentui/react/lib/Icons";
 import { ChoicesPickerComponent } from "./ChoicesPickerComponent";
-
 initializeIcons(undefined, { disableWarnings: true });
 const SmallFormFactorMaxWidth = 350;
 
@@ -33,12 +33,14 @@ export class ChoicesPicker implements ComponentFramework.StandardControl<IInputs
 		notifyOutputChanged: () => void,
 		state: ComponentFramework.Dictionary,
 		container: HTMLDivElement
+		
 	): void {
 		// Add control initialization code
 		this.notifyOutputChanged = notifyOutputChanged;
 		this.rootContainer = container;
 		this.context = context;
 		this.context.mode.trackContainerResize(true);
+
 	}
 
 	/**
@@ -66,10 +68,10 @@ export class ChoicesPicker implements ComponentFramework.StandardControl<IInputs
 					disabled: disabled,
 					masked: masked,
 					formFactor:
-						context.client.getFormFactor() == (FormFactors.Phone as number) ||
-						context.mode.allocatedWidth < SmallFormFactorMaxWidth
-							? "small"
-							: "large",
+    					context.client.getFormFactor() === 3 ||
+    					context.mode.allocatedWidth < SmallFormFactorMaxWidth
+        					? "small"
+        					: "large",
 				}),
 				this.rootContainer
 			);
@@ -86,7 +88,7 @@ export class ChoicesPicker implements ComponentFramework.StandardControl<IInputs
 	 * @returns an object based on nomenclature defined in manifest, expecting object[s] for property marked as “bound” or “output”
 	 */
 	public getOutputs(): IOutputs {
-		return { value: this.selectedValue } as IOutputs;
+		return { value: this.selectedValue };
 	}
 
 	/**
@@ -94,7 +96,6 @@ export class ChoicesPicker implements ComponentFramework.StandardControl<IInputs
 	 * i.e. cancelling any pending remote calls, removing listeners, etc.
 	 */
 	public destroy(): void {
-		// Add code to cleanup control if necessary
 		ReactDOM.unmountComponentAtNode(this.rootContainer);
 	}
 }
