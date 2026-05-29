@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest>
+  <control
+    namespace="PCF"
+    constructor="SubtotalViewGrid"
+    version="1.0.0"
+    display-name-key="SubtotalViewGrid"
+    description-key="Dataset grid with selectable subtotal row"
+    control-type="virtual">
+
+    <data-set
+      name="records"
+      display-name-key="Records">
+    </data-set>
+
+    <resources>
+      <code path="index.ts" order="1" />
+      <css path="css/SubtotalViewGrid.css" order="1" />
+      <platform-library name="React" version="16.14.0" />
+    </resources>
+
+    <feature-usage>
+      <uses-feature name="Utility" required="false" />
+    </feature-usage>
+  </control>
+</manifest>
